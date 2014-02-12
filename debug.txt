@@ -1,0 +1,10 @@
+Log file created at:
+[11/22/13 11:51:49] 
+
+[11/22/13 11:51:49] --------- peer.c now running ---------
+[11/22/13 11:51:49] Parsing command line args
+[11/22/13 11:51:49] Method call: peer_run
+[11/22/13 11:51:49] tar_file: C.tar
+[11/22/13 11:51:49] Edit masterchunks file and put:
+   File: blah.tar
+   Chunks:

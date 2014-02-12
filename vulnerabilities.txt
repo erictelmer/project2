@@ -1,0 +1,23 @@
+# VULNERABILITIES.TXT
+# This file contains documentation of known vulnerabilities
+# identified at each stage of development
+
+
+*** Checkpoint 1: WHOHAS flooding and IHAVE responses ***
+
+    1. Code hasn't been completely tested for 100% functionality.
+       To eliminate this vulnerability, we need to continue with rigorous
+       testing for the WHOHAS and IHAVE responses, ensuring that our
+       code handles corrupt data and crashing peers.
+
+*** Checkpoint 2: Final Submission ***
+
+	1. Code does not implement a cache, which would optimize the performance
+		 if it were used
+	2. We don't check for invalid files. This is a vulnerability because if 
+		 a chunk is not owned by any peer, it's possible that our program will
+		 continue to ask all other peers for this chunk, yet nobody owns the
+		 chunk.
+	3. Our program is vulnerable to malicious peers who could flood the
+		 server with the same data packet. Thus, continuously receiving the
+		 same ACK would prevent peer from progressing to the next hashChunk.

@@ -1,0 +1,316 @@
+# TESTS.TXT
+# This file contains documentation of all test cases and currently known issues
+
+
+*** Checkpoint 1: WHOHAS flooding and IHAVE responses ***
+
+Logger Test
+	Goal: To test if the logger properly functions and logs input/output errors
+    Procedure:
+        1. Create a main function to test the log
+            logfile.c
+        2. Compile the log file and logtest
+            gcc log.c logtest.c -o logtest
+		3. Run the logtest
+		    ./logtest
+	    4. Inspect the logger.txt file
+	Results:
+	    The log file contained the expected output based on the main function.
+	    The following are the contests of the "logger.txt" file:
+
+		Log file created at:
+		[10/22/13 19:53:08]
+
+		[10/22/13 19:53:08] Test 1
+		[10/22/13 19:53:08] Test 2
+		[10/22/13 19:53:08] Closing log file
+	
+	Known Issues: None
+______________________________________________________________________________
+
+PacketHeader Test
+	Goal: To test if the PacketHeader functions properly parse an incoming 
+		  packet header and properly create an outgoing packet header
+	Procedure: 
+        1. Create a packetTest.c main to test the packetHeader functions
+        2. Within packetTest.c, create tests for each function and log output
+        3. Compile the source code
+            gcc log.c packet.c packetTest.c -o packetTest
+        4. Run the packetTest
+            ./packetTest
+        5. Verify results are as expected from the packetHeaderTest.log file
+        6. If results are not as expected (ie: segfault, incorrect results),
+           then debug the code and run the test again
+    Results:
+        The test script logged the following output to the 
+		packetHeaderTest.log file:
+ 
+Log file created at:
+[11/07/13 00:37:38]
+
+[11/07/13 00:37:38]  ---- Testing PacketHeader Functions ----
+[11/07/13 00:37:38]  ---- Test 1: createPacketHeader ----
+[11/07/13 00:37:38]  PacketHeader variables:
+[11/07/13 00:37:38]   magicNum: 15441
+[11/07/13 00:37:38]   version: 1
+[11/07/13 00:37:38]   type: 1
+[11/07/13 00:37:38]   headerLen: 16
+[11/07/13 00:37:38]   packetLen: 24
+[11/07/13 00:37:38]   seqNum: 2
+[11/07/13 00:37:38]   ackNum: 3
+[11/07/13 00:37:38]    GOOD. PacketHeader is as expected
+[11/07/13 00:37:38]  ---- Test 2: fillPacketHeader ----
+[11/07/13 00:37:38]  Outgoing PacketHeader variables:
+[11/07/13 00:37:38]   magicNum: 15441
+[11/07/13 00:37:38]   version: 1
+[11/07/13 00:37:38]   type: 1
+[11/07/13 00:37:38]   headerLen: 16
+[11/07/13 00:37:38]   packetLen: 24
+[11/07/13 00:37:38]   seqNum: 2
+[11/07/13 00:37:38]   ackNum: 3
+[11/07/13 00:37:38]    GOOD. Outgoing PacketHeader is as expected
+[11/07/13 00:37:38]    SUPER GOOD. PacketHeader functions are working correctly
+
+	Known Issues: None at this time
+______________________________________________________________________________
+
+Checkpoint 1 Test
+	Goal: To test if the current implementation of peer functions according
+		  to the checkpoint specifications:
+		  - Test that the peer correctly generates a WHOHAS packet and sends
+		    sends it to the other peers after receiving a GET request on
+			standard in
+		  - Test that the peer responds with a correct IHAVE packet when it
+		    receives a WHOHAS packet for chunks the peer has
+		  - Test that the peer does NOT send an IHAVE packet when it does not
+		    have any of the chunks listed in a WHOHAS packet
+	Procedure:
+		1. Compile the source code
+			make
+		2. Run the Checkpoint1 script
+			cp peer cp1/
+			cd cp1/
+			ruby checkpoint1.rb
+	Results:
+		The test script printed out the following messages:
+
+			########### Test 1 Passed! ###########
+							...
+			verifying packet sanity
+			########### Test 2 Passed! ###########
+							...
+			Good, went ten seconds without receiving IHAVE
+			########### Test 3 Passed! ###########
+
+	Known Issues: None
+______________________________________________________________________________
+
+*** Checkpoint 2: Final Submission ***
+
+HashList Test
+	Goal: To test if the hashList functions work properly and as expected
+	Procedure: 
+		1. Create a hashtest.c main to test the hashList functions
+		2. Within hashtest.c, create tests for each function and log output
+		3. Compile the source code
+			gcc log.c hashList.c hashtest.c -o hashTest
+		4. Run the hashTest
+			./hashTest
+		5. Verify results are as expected from the hashListText.log file
+		6. If results are not as expected (ie: segfault, incorrect results),
+		   then debug the code and run the test again
+	Results:
+		The test script logged the following output to the 
+		hashListText.log file:
+
+Log file created at:
+[11/06/13 21:44:18]
+
+[11/06/13 21:44:18]  ---- Testing HashList Functions ----
+[11/06/13 21:44:18]  ---- Test 1: newHashList() ----
+[11/06/13 21:44:18]    Success: Created newHashList
+[11/06/13 21:44:18]    size of list: 0
+[11/06/13 21:44:18]  ---- Test 2: hexCharsToBinary ----
+[11/06/13 21:44:18]    Created chunkHash ch1: c75c07b0
+[11/06/13 21:44:18]    Created chunkHash ch2: c75c0790
+[11/06/13 21:44:18]    Created chunkHash ch3: c75c0770
+[11/06/13 21:44:18]  ---- Test 3: newHashNode ----
+[11/06/13 21:44:18]    Created new hashNode 1
+[11/06/13 21:44:18]    Created new hashNode 2
+[11/06/13 21:44:18]    Created new hashNode 3
+[11/06/13 21:44:18]  ---- Test 4: appendNode ----
+[11/06/13 21:44:18]    Appended node1, size of list: 1
+[11/06/13 21:44:18]    Appended node2, size of list: 2
+[11/06/13 21:44:18]  ---- Test 5: findHashNode ----
+[11/06/13 21:44:18]    Found hashNode in list: node1
+[11/06/13 21:44:18]    Found hashNode in list: node2
+[11/06/13 21:44:18]    Did not find node3 in list. Correctly returned NULL
+[11/06/13 21:44:18]  ---- Test 6: removeNode ----
+[11/06/13 21:44:18]    size of list: 2
+[11/06/13 21:44:18]    Removed hashNode from list: node2
+[11/06/13 21:44:18]    size of list: 1
+[11/06/13 21:44:18]    Good. Cannot remove node that doesn't exist in list: node2
+[11/06/13 21:44:18]    size of list: 1
+[11/06/13 21:44:18]    Removed hashNode from list: node1
+[11/06/13 21:44:18]    size of list: 0
+[11/06/13 21:44:18]    Good. Cannot remove node that doesn't exist in list: node3
+[11/06/13 21:44:18]    size of list: 0
+[11/06/13 21:44:18]    Good. Cannot remove node that doesn't exist in list: node1
+[11/06/13 21:44:18]    size of list: 0
+[11/06/13 21:44:18]  ---- Test 7: freeNode ----
+[11/06/13 21:44:18]    Freed: node1
+[11/06/13 21:44:18]    Freed: node2
+[11/06/13 21:44:18]  ---- Test 8: freeList ----
+[11/06/13 21:44:18]    Freed Empty List: list
+[11/06/13 21:44:18]    Creating new list with node3.
+[11/06/13 21:44:18]    Size of list: 1
+[11/06/13 21:44:18]    Freed list with nodes: list2
+	
+	Known Issues: None at this time
+______________________________________________________________________________
+
+OrderedList Test, DownloadList Test, UploadList Test
+    Goal: To test if the orderedList, uploadList, and downloadList functions 
+		  work properly and with the expected and correct behavior
+    Procedure:
+        1. Create an orderedListTest.c main to test the above functions
+        2. Within orderedListTest.c, create tests for each function and 
+		   log output
+        3. Compile the source code
+            gcc log.c orderedList.c orderedListTest.c -o orderTest
+        4. Run the orderTest
+            ./orderTest
+        5. Verify results are as expected from the orderdListTest.log file
+        6. If results are not as expected (ie: segfault, incorrect results),
+           then debug the code and run the test again until the results are 
+		   correct.
+    Results:
+        The test script logged the following output to the 
+		orderedListTest.log file:
+
+Log file created at:
+[11/07/13 00:10:55]
+
+[11/07/13 00:10:55]  ---- Testing OrderedList Functions ----
+[11/07/13 00:10:55]  ---- Test 1: NewOrderedNode ----
+[11/07/13 00:10:56]    Good. Created OrderedNode
+[11/07/13 00:10:56]    Good: difftime=-1.000000
+[11/07/13 00:10:56]  ---- Test 2: freeOrderedNode ----
+[11/07/13 00:10:56]    Good. Freed node
+[11/07/13 00:10:56]  ---- Test 3: NewOrderedList ----
+[11/07/13 00:10:56]    Good. Created OrderedList
+[11/07/13 00:10:56]  ---- Test 4: isOListEmpty ----
+[11/07/13 00:10:56]    Good. isOListEmpty is correct
+[11/07/13 00:10:56]  ---- Test 5: freeOrderedList ----
+[11/07/13 00:10:56]    Good. Freed ordList
+[11/07/13 00:10:56]  ---- Test 6: newDownloadList ----
+[11/07/13 00:10:56]    Good. Created newDownloadList
+[11/07/13 00:10:56]  ---- Test 7: freeDownloadList ----
+[11/07/13 00:10:56]     Good. Freed downloadList
+[11/07/13 00:10:56]  ---- Test 8: newUploadList ----
+[11/07/13 00:10:56]     Good. Created newUploadList
+[11/07/13 00:10:56]  ---- Test 9: freeUploadList ----
+[11/07/13 00:10:56]     Good. Freed uploadList
+[11/07/13 00:10:56]  ---- Test 10: addNum ----
+[11/07/13 00:10:56]    Adding num 0 to list
+[11/07/13 00:10:56]    ordList size: 1
+[11/07/13 00:10:56]    ordList startNum: 0
+[11/07/13 00:10:56]    Good. addNum to an ordList
+[11/07/13 00:10:56]    Adding num 2 to list
+[11/07/13 00:10:56]    ordList size: 2
+[11/07/13 00:10:56]    ordered list: 0, 2
+[11/07/13 00:10:56]    Good. Adding same num doesn't affect size
+[11/07/13 00:10:56]    Good. ordList has the correct size
+[11/07/13 00:10:56]    ordered list: 0 ,1, 2
+[11/07/13 00:10:56]  ---- Test 11: removeNum ----
+[11/07/13 00:10:56]    Good. removeNum has the correct size
+[11/07/13 00:10:56]    ordered list: 0, 2
+[11/07/13 00:10:56]    Good. removeNum did not remove an invalid num
+[11/07/13 00:10:56]    ordered list: 0, 2
+[11/07/13 00:10:56]    Good. removeNum removed all numbers
+[11/07/13 00:10:56]    Good. removeNum functions properly on empty list
+[11/07/13 00:10:56]  ---- Test 12 & Test 13: sentData & receivedACK ----
+[11/07/13 00:10:56]    Good. Received ACK 0
+[11/07/13 00:10:56]    Good. Received ACK 2
+[11/07/13 00:10:56]    Good. Received ACK 2
+[11/07/13 00:10:56]    Good. Received ACK 2
+[11/07/13 00:10:56]    Good. Received LOST on ACK 2
+[11/07/13 00:10:56]    Good. Received ACK 5
+[11/07/13 00:10:56]    Good. uploadList size: 2
+[11/07/13 00:10:56]    Good. uploadList has correct start num
+[11/07/13 00:10:56]  ---- Test 14: receivedData ----
+[11/07/13 00:10:56]    Good. downloadList received 0
+[11/07/13 00:10:56]    Good. downloadList received 1
+[11/07/13 00:10:56]    Good. downloadList received 2
+[11/07/13 00:10:56]    Good. downloadList received 0
+[11/07/13 00:10:56]    Good. downloadList received 5
+[11/07/13 00:10:56]    Good. downloadList received 3
+[11/07/13 00:10:56]    Good. downloadList received 6
+[11/07/13 00:10:56]    Good. downloadList received 10
+[11/07/13 00:10:56]    Good. downloadList received 7
+[11/07/13 00:10:56]    Good. downloadList received 8
+[11/07/13 00:10:56]    Good. downloadList received 11
+[11/07/13 00:10:56]    Good. downloadList received 9
+
+	Known Issues: None at this time
+______________________________________________________________________________
+
+Reliability Test Between 2 Peers
+		Goal: To test that peer.c can get/send requests
+		Procedure:
+				1. Set the SPIFFY_ROUTER environment variable in two terminals
+						setenv SPIFFY_ROUTER 127.0.0.1:9691
+				2. Run the hupsim
+						./hupsim.pl -m topo.map -n nodes.map -p 9691 -v 0 &
+				3. Run the peer in Terminal 1
+						./peer -p ./tmp/nodes.map -c ./tmp/A.haschunks -f ./tmp/C.masterchunks -m 4 -i 1
+				4. Run the peer in Terminal 2
+						./peer -p ./tmp/nodes.map -c ./tmp/B.haschunks -f ./tmp/C.masterchunks -m 4 -i 2
+				5. In Terminal 1, send a GET Request
+						GET ./tmp/B.chunks ./tmp/newB.tar
+				6. Verify that all of the chunks are received by checking the difference 
+					 between the orignal file and the output file
+						$diff ./tmp/A.tar ./tmp/newB.tar
+		Results:
+				diff does not print out anything. Thus, we verified that the 
+				original==output of the file transfer
+		Known Issues:
+				Between two peers, one peer can GET and receive chunks. Testing needs 
+				to be conducted for multiple peers sending concurrent requests.
+______________________________________________________________________________
+
+Memory Leak Test
+		Goal: To test for memory leaks within the program
+		Procedure:
+				1. Follow the instructions for running peer.c between two peers, 
+					 but now run with valgrind
+		Results: 
+
+==19299== LEAK SUMMARY:
+==19299==    definitely lost: 0 bytes in 0 blocks
+==19299==    indirectly lost: 0 bytes in 0 blocks
+==19299==      possibly lost: 0 bytes in 0 blocks
+==19299==    still reachable: 14,776 bytes in 36 blocks
+==19299==         suppressed: 0 bytes in 0 blocks
+==19299== 
+==19299== For counts of detected and suppressed errors, rerun with: -v
+==19299== Use --track-origins=yes to see where uninitialised values come from
+==19299== ERROR SUMMARY: 1607 errors from 3 contexts (suppressed: 2 from 2)
+
+		Known Issues:
+				There are currently memory leaks, although none of the leaks are from
+				unreachable memory. We suspect that the memory leaks occur because we
+				"CTRL-C" to exit our program. Thus, this is something that we want to
+				look into fixing--perhaps finding a better command to kill the program
+				or else handling "CTRL-C" with some sort of memory handling calls.
+______________________________________________________________________________
+
+Robustness Test:
+		Goal: To test the robustness of the peer.c file transfer
+		Procedure: 
+				To test robustness, we run the peer with multiple clients and simulate
+				lost packets and crashing peers.
+		Known Issues:
+				Our peer.c seems to transfer the file, but also results in a slightly
+				larger file than expected (by about .1 MB) This is definitely an issue
+				as the file should be exactly 1 MB.
